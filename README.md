@@ -69,8 +69,11 @@ npm run lint
 npm test
 ```
 
-Bleibt `node_modules/@bos/eeb-format/dist` leer, hat npm dessen `prepare`-Skript
-nicht ausgeführt. Dann `npm --prefix ../eeb-format run build`.
+Die Pakete tragen bewusst **kein `prepare`-Skript**: npm ordnet die Läufe von
+`file:`-Abhängigkeiten nicht nach der Peer-Beziehung, und führt Install-Skripte
+inzwischen ohnehin nicht mehr ungefragt aus. Wer `dist/` braucht, baut
+ausdrücklich und in der Reihenfolge eeb-format → vokabulare →
+taktische-zeichen → meldekopf. Ausführlich im README von eeb-format.
 
 ## Lizenz
 
