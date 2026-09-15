@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import type { Fahrzeug } from "@bos/eeb-format";
 import { THW_FAHRZEUGTYPEN } from "./thw.js";
-import { sitzplaetzeAusFreitext, sitzplaetzeFuer, sitzplatzBilanz } from "./sitzplaetze.js";
+import { sitzplaetzeAusFreitext, sitzplaetzeFuer, sitzplaetzeRichtwert, sitzplatzBilanz } from "./sitzplaetze.js";
 
 const code = (c: number): Fahrzeug => ({ typ: { code: c } });
 const text = (t: string): Fahrzeug => ({ typ: { freitext: t } });
@@ -40,6 +40,23 @@ describe("sitzplaetzeFuer()", () => {
     // Auch als Freitext geschrieben — nicht als Gruppenbesatzung durchrutschen.
     expect(sitzplaetzeFuer(text("MzKW"), THW_FAHRZEUGTYPEN)).toBe(7);
     expect(sitzplaetzeFuer(text("MzGW"), THW_FAHRZEUGTYPEN)).toBe(7);
+  });
+
+  it("nimmt die am Fahrzeug erfasste Zahl vor dem Richtwert des Typs", () => {
+    // FüKomKw: 1+2 laut Vokabular, es gibt ihn aber auch mit Doppelkabine.
+    expect(sitzplaetzeFuer(code(3), THW_FAHRZEUGTYPEN)).toBe(3);
+    expect(sitzplaetzeFuer({ ...code(3), sitzplaetze: 7 }, THW_FAHRZEUGTYPEN)).toBe(7);
+    // Auch dort, wo der Typ gar keinen Richtwert hat (MTW gl) oder der Freitext
+    // auf kein Muster passt — die eigene Angabe schließt die Lücke.
+    expect(sitzplaetzeFuer({ ...code(24), sitzplaetze: 8 }, THW_FAHRZEUGTYPEN)).toBe(8);
+    expect(sitzplaetzeFuer({ ...text("Bus"), sitzplaetze: 50 }, THW_FAHRZEUGTYPEN)).toBe(50);
+    // Eine erfasste 0 ist eine Aussage und darf nicht zum Richtwert zurückfallen.
+    expect(sitzplaetzeFuer({ ...code(4), sitzplaetze: 0 }, THW_FAHRZEUGTYPEN)).toBe(0);
+  });
+
+  it("sitzplaetzeRichtwert() ignoriert die eigene Angabe — sie ist der Vorschlag für die Eingabe", () => {
+    expect(sitzplaetzeRichtwert({ ...code(3), sitzplaetze: 7 }, THW_FAHRZEUGTYPEN)).toBe(3);
+    expect(sitzplaetzeRichtwert({ ...code(24), sitzplaetze: 8 }, THW_FAHRZEUGTYPEN)).toBeUndefined();
   });
 });
 

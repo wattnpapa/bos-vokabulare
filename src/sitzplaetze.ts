@@ -6,10 +6,14 @@
  * und ein LKW Lkr gl (3 Plätze) ergeben eine Meldung, die vor Ort nicht
  * aufgeht — genau das soll auffallen, bevor der Bogen rausgeht.
  *
- * Zwei Quellen für die Platzzahl, in dieser Reihenfolge:
- *  1. Fahrzeugtyp aus dem Vokabular der Organisation (`sitzplaetze` am
+ * Drei Quellen für die Platzzahl, in dieser Reihenfolge:
+ *  1. Die am Fahrzeug erfasste Zahl (`Fahrzeug.sitzplaetze`). Sie schlägt alles
+ *     andere, weil nur die Einheit selbst weiß, was in ihrem Fahrzeug steht:
+ *     denselben Typ gibt es in Baulosen mit unterschiedlicher Kabine, ein
+ *     FüKomKw mit Doppelkabine fasst 7 statt der hinterlegten 3.
+ *  2. Fahrzeugtyp aus dem Vokabular der Organisation (`sitzplaetze` am
  *     VokabularEintrag) — derzeit gepflegt für das THW.
- *  2. Freitext-Fahrzeuge über die Kurzzeichen-Tabelle unten. Nötig, weil
+ *  3. Freitext-Fahrzeuge über die Kurzzeichen-Tabelle unten. Nötig, weil
  *     Feuerwehr, Hilfsorganisationen und OV-Fahrzeuge ausschließlich über den
  *     Freitext-Ausweg erfasst werden.
  *
@@ -69,14 +73,25 @@ export function sitzplaetzeAusFreitext(text: string): number | undefined {
 }
 
 /**
- * Sitzplätze eines Fahrzeugs (inkl. Fahrer/in) — aus dem Vokabular der
- * Organisation oder, bei Freitext, aus der Kurzzeichen-Tabelle.
- * `undefined` = unbekannt, dann wird nicht geprüft.
+ * Richtwert für die Sitzplätze eines Fahrzeugtyps (inkl. Fahrer/in) — aus dem
+ * Vokabular der Organisation oder, bei Freitext, aus der Kurzzeichen-Tabelle.
+ * `undefined` = unbekannt. Für die Bilanz ist `sitzplaetzeFuer` zuständig; der
+ * Richtwert allein dient der Eingabe als Vorschlag und Platzhalter.
  */
-export function sitzplaetzeFuer(f: Fahrzeug, tabelle: VokabularEintrag[]): number | undefined {
+export function sitzplaetzeRichtwert(f: Fahrzeug, tabelle: VokabularEintrag[]): number | undefined {
   if (f.typ.code != null) return tabelle.find((e) => e.code === f.typ.code)?.sitzplaetze;
   const freitext = f.typ.freitext?.trim();
   return freitext ? sitzplaetzeAusFreitext(freitext) : undefined;
+}
+
+/**
+ * Sitzplätze eines Fahrzeugs (inkl. Fahrer/in): die am Fahrzeug erfasste Zahl,
+ * sonst der Richtwert des Typs. `undefined` = unbekannt, dann wird nicht
+ * geprüft. Eine erfasste 0 ist eine Aussage („fährt niemanden mit") und wird
+ * als solche gezählt, nicht als fehlende Angabe.
+ */
+export function sitzplaetzeFuer(f: Fahrzeug, tabelle: VokabularEintrag[]): number | undefined {
+  return f.sitzplaetze ?? sitzplaetzeRichtwert(f, tabelle);
 }
 
 /** Transportbilanz eines Bogens: was an Plätzen da ist, was gebraucht wird. */
