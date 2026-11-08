@@ -96,6 +96,11 @@ export const THW_EINHEITSTYPEN: VokabularEintrag[] = [
   { code: 44, kurz: "FGr K (B)", name: "Fachgruppe Kommunikation (B)", stanNr: "10-05b" },
   { code: 45, kurz: "Stab", name: "Stabspersonal", stanNr: "10-06" },
   { code: 46, kurz: "OV-Stab", name: "Ortsverband (Stab)", stanNr: "00-01" },
+  // Die drei Trupps der FGr Log-MW (StAN 09-05, Stand 01.07.2026, Kap. 3): einsatztaktisch werden sie oft
+  // einzeln geführt (Rückmeldung OV Chemnitz, 11/2026). Gruppenführer/in bleibt bei der Fachgruppe.
+  { code: 47, kurz: "Tr Log-M", name: "Trupp Logistik-Materialerhaltung", stanNr: "09-05" },
+  { code: 48, kurz: "Tr Log-VG", name: "Trupp Logistik-Verbrauchsgüterversorgung", stanNr: "09-05" },
+  { code: 49, kurz: "Tr Log-TL", name: "Trupp Logistik-Tanklogistik", stanNr: "09-05" },
 ];
 
 // ---------------------------------------------------------------- Funktionen
@@ -257,11 +262,11 @@ export const THW_FAHRZEUGTYPEN: VokabularEintrag[] = [
   { code: 25, kurz: "MzKW", name: "Mehrzweckkraftwagen", sitzplaetze: 7 },
   { code: 26, kurz: "MzGW", name: "Mehrzweckgerätewagen", sitzplaetze: 7 },
   { code: 27, kurz: "MTW OV", name: "Mannschaftstransportwagen Ortsverband", sitzplaetze: 9 },
-  // Rückmeldung OV Chemnitz (11/2026): StAN-Fahrzeug der FGr Log-MW ist der Kipper mit Ladekran
-  // (Funkrufname-Kennzahl 63), nicht der LKW Lkr; der Auflieger des Tr Log-TS gibt es in zwei Bauformen.
+  // Rückmeldung OV Chemnitz (11/2026) und StAN 09-05/09-07 (Stand 01.07.2026): Der Tr Log-M fährt den
+  // LKW mit Ladekran (9 t, im Funk LKW-K Lkr, Kennzahl 63), nicht den LKW Lkr; der Tr Log-TS führt zwei Auflieger.
   { code: 28, kurz: "LKW K Lkr", name: "Lastkraftwagen Kipper mit Ladekran", sitzplaetze: 3 },
-  { code: 29, kurz: "Auflieger Plane/Spriegel", name: "Auflieger Plane/Spriegel", sitzplaetze: 0 },
-  { code: 30, kurz: "Auflieger Plattform", name: "Auflieger Plattform", sitzplaetze: 0 },
+  { code: 29, kurz: "Auflieger Plane/Spriegel", name: "Auflieger Pritsche Plane/Spriegel mit Ladebordwand", sitzplaetze: 0 },
+  { code: 30, kurz: "Auflieger Container", name: "Auflieger Container", sitzplaetze: 0 },
   { code: 40, kurz: "Anh 2t", name: "Anhänger (2 t Nutzlast)", sitzplaetze: 0 },
   { code: 41, kurz: "Anh K", name: "Anhänger mit Spezialaufbau für FGr K (1 t Nutzlast)", sitzplaetze: 0 },
   { code: 42, kurz: "Anh FüLa", name: "Anhänger Führung und Lage", sitzplaetze: 0 },
@@ -278,13 +283,18 @@ export const THW_FAHRZEUGTYPEN: VokabularEintrag[] = [
   { code: 53, kurz: "Anh TWAA", name: "Anhänger TWAA", sitzplaetze: 0 },
   { code: 54, kurz: "Anh BDF", name: "Anhänger BDF-Lafette", sitzplaetze: 0 },
   { code: 55, kurz: "Anh ASH", name: "Anhänger mit Abstützsystem Holz", sitzplaetze: 0 },
-  { code: 56, kurz: "Anh Kühl", name: "Kühlanhänger", sitzplaetze: 0 },
+  { code: 56, kurz: "Anh Kühl", name: "Anhänger mit Spezialaufbau für FGr Log-V, Kühl", sitzplaetze: 0 },
+  { code: 57, kurz: "Anh 12t Koffer", name: "Anhänger 12 t, Koffer (Trockenlager)", sitzplaetze: 0 },
+  { code: 58, kurz: "Anh 5t Tandem", name: "Anhänger Tandem (5 t Zuladung)", sitzplaetze: 0 },
+  { code: 59, kurz: "Anh FGr Log-MW", name: "Anhänger mit Spezialaufbau für FGr Log-MW (2 t Nutzlast)", sitzplaetze: 0 },
   // Ladungsträger ohne eigenen Antrieb (Rückmeldung OV Chemnitz, 11/2026): Sie reisen auf einem WLF, LKW oder
   // Anhänger mit und stehen als eigene Zeile im Bogen, damit der Meldekopf weiß, was mitkommt. Keine Sitzplätze.
   { code: 60, kurz: "AB", name: "Abrollbehälter", sitzplaetze: 0 },
   { code: 61, kurz: "WB", name: "Wechselbrücke", sitzplaetze: 0 },
   { code: 62, kurz: "Cont 10ft", name: "Container 10 ft", sitzplaetze: 0 },
   { code: 63, kurz: "Cont 20ft", name: "Container 20 ft", sitzplaetze: 0 },
+  { code: 64, kurz: "ABK", name: "Abrollbehälter Kraftstoff (ca. 9 m³)", sitzplaetze: 0 },
+  { code: 65, kurz: "Cont Werkstatt", name: "Werkstattcontainer", sitzplaetze: 0 },
 ];
 
 // ----------------------------------------------- Funkrufnamen-Kennwörter (BOS)

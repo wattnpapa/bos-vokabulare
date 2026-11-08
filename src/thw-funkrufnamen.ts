@@ -218,6 +218,9 @@ export const TEILEINHEIT_KENNZAHL_JE_EINHEITSTYP: Record<number, number> = {
   43: 18, // FGr K (A)
   44: 19, // FGr K (B)
   46: 86, // OV-Stab → OV (Organisationseinheit, kein Zug; s. Kopf)
+  47: 63, // Tr Log-M  → Teileinheit FGr Log-MW (die Trupps funken unter der Kennzahl ihrer Fachgruppe)
+  48: 63, // Tr Log-VG → dto.
+  49: 63, // Tr Log-TL → dto.
 };
 
 /** Teileinheit-Kennzahl (1. Zahl des Funkrufnamens) für einen Einheitstyp-Code. */

@@ -96,3 +96,20 @@ describe("OV-Stab (StAN 00-01)", () => {
     for (const p of personal) expect(bekannt.has(p.funktionen[0]!.code!)).toBe(true);
   });
 });
+
+describe("Trupps der FGr Log-MW (StAN 09-05, Kap. 3)", () => {
+  const code = (kurz: string) => THW_EINHEITSTYPEN.find((e) => e.kurz === kurz)!.code!;
+  const staerke = (kurz: string) => {
+    const p = stanPersonalVorbelegung(OrganisationsTyp.THW, { code: code(kurz) });
+    const je = (r: StaerkeRolle) => p.filter((x) => x.staerkeRolle === r).length;
+    return `${je(StaerkeRolle.FUEHRER)}/${je(StaerkeRolle.UNTERFUEHRER)}/${je(StaerkeRolle.MANNSCHAFT)}`;
+  };
+
+  it("haben die Stärken aus dem Gliederungsbild", () => {
+    expect(staerke("Tr Log-M")).toBe("0/1/4");
+    expect(staerke("Tr Log-VG")).toBe("0/1/5");
+    expect(staerke("Tr Log-TL")).toBe("0/1/3");
+    // Zusammen mit dem Gruppenführer die Fachgruppe -/4/12/16.
+    expect(staerke("FGr Log-MW")).toBe("0/4/12");
+  });
+});

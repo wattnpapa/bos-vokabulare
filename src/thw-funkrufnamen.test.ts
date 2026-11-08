@@ -126,6 +126,23 @@ describe("stanFahrzeugVorbelegung — Funkrufname", () => {
     expect(fahrzeuge.some((f) => f.typ.code === THW_FAHRZEUGTYPEN.find((t) => t.kurz === "LKW Lkr")!.code)).toBe(false);
   });
 
+  it("setzt die FGr Log-MW aus ihren drei Trupps zusammen, Funkruf unter 63 (StAN 09-05, Kap. 3)", () => {
+    const fz = (kurz: string) => stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp(kurz));
+    const trupps = [...fz("Tr Log-M"), ...fz("Tr Log-VG"), ...fz("Tr Log-TL")];
+    expect(fz("FGr Log-MW")).toEqual(trupps);
+    expect(trupps).toHaveLength(12); // 5 (Tr Log-M) + 4 (Tr Log-VG) + 3 (WLF, 2× ABK)
+    for (const f of trupps) if (f.funkrufname) expect(f.funkrufname.teile[0]).toBe(63);
+    const abk = THW_FAHRZEUGTYPEN.find((t) => t.kurz === "ABK")!;
+    expect(fz("Tr Log-TL").filter((f) => f.typ.code === abk.code)).toHaveLength(2);
+  });
+
+  it("führt beim Tr Log-TS beide Auflieger der StAN 09-07", () => {
+    const kurz = stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp("Tr Log-TS")).map(
+      (f) => THW_FAHRZEUGTYPEN.find((t) => t.code === f.typ.code)!.kurz,
+    );
+    expect(kurz).toEqual(["SZM", "Auflieger Plane/Spriegel", "Auflieger Container"]);
+  });
+
   it("führt bei der FGr Log-V den Kühlanhänger (Rückmeldung OV Chemnitz)", () => {
     const fahrzeuge = stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp("FGr Log-V"));
     const kuehl = THW_FAHRZEUGTYPEN.find((t) => t.kurz === "Anh Kühl")!;

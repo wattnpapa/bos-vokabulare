@@ -49,6 +49,14 @@ const fk = (code: number, ...kennzahlen: number[]): StanFahrzeug =>
 /** Freitext-Fahrzeug/Anhänger (keine Kennzahl). */
 const ft = (freitext: string, anzahl = 1): StanFahrzeug => ({ typ: { freitext }, anzahl });
 
+/**
+ * Trupps der FGr Log-MW (StAN 09-05, Kap. 3). Kennzahlen nach Taschenkarte: 63 LKW-K Lkr (Rückmeldung
+ * OV Chemnitz: Heros … 63/63), 21 PKW gl, 34 MLW IV, 46 LKW Lkr gl, 65 WLF.
+ */
+const LOG_M: StanFahrzeug[] = [fk(28, 63), f(65), f(44), fk(15, 21), f(59)]; // LKW K Lkr, Werkstattcontainer, Anh Plattform, PKW gl, Anh FGr Log-MW
+const LOG_VG: StanFahrzeug[] = [fk(6, 34), fk(10, 46), f(58), f(21)]; // MLW IV (P/S, Lbw), LKW Lkr gl, Anh 5t Tandem, Gabelstapler
+const LOG_TL: StanFahrzeug[] = [fk(11, 65), f(64, 2)]; // LKW WLF, 2x Abrollbehälter Kraftstoff
+
 /** Fahrzeugtyp-Codes: siehe THW_FAHRZEUGTYPEN in thw.ts; Kennzahlen: thw-funkrufnamen.ts. */
 export const THW_STAN_FAHRZEUGE: Record<number, StanFahrzeug[]> = {
   3: [fk(2, 10)], // ZTr TZ: FüKW (ZTr-Fahrzeug → 10)
@@ -80,15 +88,19 @@ export const THW_STAN_FAHRZEUGE: Record<number, StanFahrzeug[]> = {
   31: [fk(11, 65), fk(9, 44), f(44)], // Öl (B): LKW Lkr (leicht)
   32: [fk(11, 65, 67), f(44)], // Öl (C): 2x LKW WLF, Anh Plattform
   36: [fk(2, 10)], // ZTr FZ Log: FüKW (ZTr-Fahrzeug → 10; s. Kopf-Kommentar)
-  // Log-MW: LKW K Lkr (Kennzahl 63, Rückmeldung OV Chemnitz 11/2026 — vorher LKW Lkr/44), LKW Lkr gl, WLF Tank, MLW IV, PKW gl, Gabelstapler, Anh Plattform, Anhänger
-  37: [fk(28, 63), fk(10, 46), fk(12, 65), fk(6, 34), fk(15, 21), f(21), f(44), ft("Anh FGr Log-MW"), ft("Anhänger")],
-  38: [fk(8, 43), fk(5, 25), f(56), ft("Anhänger")], // Log-V: LKW Lbw, MTW FGr, Anh Kühl (Rückmeldung OV Chemnitz 11/2026), Anhänger
-  39: [fk(13, 68), f(14)], // Tr Log-TS: SZM, Auflieger (Bauform offen: im Bogen auf „Auflieger Plane/Spriegel" oder „Auflieger Plattform" änderbar)
+  // FZ Log (09-04 bis 09-07) am 2026-11-08 von Hand gegen die StAN-Gliederungsbilder (Stand 01.07.2026) geprüft.
+  // Log-MW = Tr Log-M + Tr Log-VG + Tr Log-TL (Kap. 3), die Trupps einzeln unter 47–49.
+  37: [...LOG_M, ...LOG_VG, ...LOG_TL],
+  38: [fk(8, 43), fk(5, 25), f(57), f(56)], // Log-V: LKW Lbw, MTW FGr, Anh 12t Koffer, Anh Kühl
+  39: [fk(13, 68), f(29), f(30)], // Tr Log-TS: SZM, Auflieger Plane/Spriegel mit Lbw, Auflieger Container
   41: [fk(2, 11)], // ZTr FZ FK: FüKW (nur FZ FK → 11)
   42: [fk(3, 12), f(42)], // F: FüKomKW, Anh FüLa
   43: [fk(1, 13), fk(5, 25), f(40), f(41)], // K (A): FmKW, MTW FGr, Anh 2t, Anh K
   44: [fk(1, 13), fk(5, 25, 26), f(40), f(41), ft("Fahrzeuge/Anhänger Richtfunk")], // K (B): 2x MTW FGr
   46: [fk(27, 25), ft("Anh OV")], // OV-Stab: MTW OV, Anhänger des OV
+  47: LOG_M,
+  48: LOG_VG,
+  49: LOG_TL,
 };
 
 /**

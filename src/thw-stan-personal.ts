@@ -89,6 +89,9 @@ export const THW_STAN_PERSONAL: Record<number, StanSollplatz[]> = {
   37: [grfue(), trfue(3), he(12)], // Log-MW — -/4/12/16
   38: [grfue(), trfue(2), he(9)], // Log-V — -/3/9/12
   39: [trfue(), he(3)], // Tr Log-TS — -/1/3/4
+  47: [trfue(), he(4)], // Tr Log-M — -/1/4/5 (StAN 09-05, Kap. 3)
+  48: [trfue(), he(5)], // Tr Log-VG — -/1/5/6
+  49: [trfue(), he(3)], // Tr Log-TL — -/1/3/4
   41: [zfue(), ztrfue(), he(2)], // ZTr FZ FK — 1/1/2/4
   42: [grfue(), trfue(2), he(4)], // F — -/3/4/7
   43: [grfue(), trfue(2), he(6)], // K (A) — -/3/6/9
