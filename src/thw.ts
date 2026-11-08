@@ -257,6 +257,11 @@ export const THW_FAHRZEUGTYPEN: VokabularEintrag[] = [
   { code: 25, kurz: "MzKW", name: "Mehrzweckkraftwagen", sitzplaetze: 7 },
   { code: 26, kurz: "MzGW", name: "Mehrzweckgerätewagen", sitzplaetze: 7 },
   { code: 27, kurz: "MTW OV", name: "Mannschaftstransportwagen Ortsverband", sitzplaetze: 9 },
+  // Rückmeldung OV Chemnitz (11/2026): StAN-Fahrzeug der FGr Log-MW ist der Kipper mit Ladekran
+  // (Funkrufname-Kennzahl 63), nicht der LKW Lkr; der Auflieger des Tr Log-TS gibt es in zwei Bauformen.
+  { code: 28, kurz: "LKW K Lkr", name: "Lastkraftwagen Kipper mit Ladekran", sitzplaetze: 3 },
+  { code: 29, kurz: "Auflieger Plane/Spriegel", name: "Auflieger Plane/Spriegel", sitzplaetze: 0 },
+  { code: 30, kurz: "Auflieger Plattform", name: "Auflieger Plattform", sitzplaetze: 0 },
   { code: 40, kurz: "Anh 2t", name: "Anhänger (2 t Nutzlast)", sitzplaetze: 0 },
   { code: 41, kurz: "Anh K", name: "Anhänger mit Spezialaufbau für FGr K (1 t Nutzlast)", sitzplaetze: 0 },
   { code: 42, kurz: "Anh FüLa", name: "Anhänger Führung und Lage", sitzplaetze: 0 },
@@ -273,6 +278,13 @@ export const THW_FAHRZEUGTYPEN: VokabularEintrag[] = [
   { code: 53, kurz: "Anh TWAA", name: "Anhänger TWAA", sitzplaetze: 0 },
   { code: 54, kurz: "Anh BDF", name: "Anhänger BDF-Lafette", sitzplaetze: 0 },
   { code: 55, kurz: "Anh ASH", name: "Anhänger mit Abstützsystem Holz", sitzplaetze: 0 },
+  { code: 56, kurz: "Anh Kühl", name: "Kühlanhänger", sitzplaetze: 0 },
+  // Ladungsträger ohne eigenen Antrieb (Rückmeldung OV Chemnitz, 11/2026): Sie reisen auf einem WLF, LKW oder
+  // Anhänger mit und stehen als eigene Zeile im Bogen, damit der Meldekopf weiß, was mitkommt. Keine Sitzplätze.
+  { code: 60, kurz: "AB", name: "Abrollbehälter", sitzplaetze: 0 },
+  { code: 61, kurz: "WB", name: "Wechselbrücke", sitzplaetze: 0 },
+  { code: 62, kurz: "Cont 10ft", name: "Container 10 ft", sitzplaetze: 0 },
+  { code: 63, kurz: "Cont 20ft", name: "Container 20 ft", sitzplaetze: 0 },
 ];
 
 // ----------------------------------------------- Funkrufnamen-Kennwörter (BOS)

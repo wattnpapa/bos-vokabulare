@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { OrganisationsTyp } from "@bos/eeb-format";
-import { THW_EINHEITSTYPEN } from "./thw.js";
+import { THW_EINHEITSTYPEN, THW_FAHRZEUGTYPEN } from "./thw.js";
 import {
   THW_TEILEINHEIT_KENNZAHLEN,
   THW_FAHRZEUG_KENNZAHLEN,
@@ -116,6 +116,20 @@ describe("stanFahrzeugVorbelegung — Funkrufname", () => {
     const fahrzeuge = stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp("B"));
     const anhaenger = fahrzeuge[1]!; // Anh Plane/Spriegel
     expect(anhaenger.funkrufname).toBeUndefined();
+  });
+
+  it("führt bei der FGr Log-MW den LKW K Lkr als Heros 63/63 (Rückmeldung OV Chemnitz)", () => {
+    const fahrzeuge = stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp("FGr Log-MW"));
+    const kipper = THW_FAHRZEUGTYPEN.find((t) => t.kurz === "LKW K Lkr")!;
+    expect(fahrzeuge[0]!.typ).toEqual({ code: kipper.code });
+    expect(fahrzeuge[0]!.funkrufname?.teile).toEqual([63, 63]);
+    expect(fahrzeuge.some((f) => f.typ.code === THW_FAHRZEUGTYPEN.find((t) => t.kurz === "LKW Lkr")!.code)).toBe(false);
+  });
+
+  it("führt bei der FGr Log-V den Kühlanhänger (Rückmeldung OV Chemnitz)", () => {
+    const fahrzeuge = stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp("FGr Log-V"));
+    const kuehl = THW_FAHRZEUGTYPEN.find((t) => t.kurz === "Anh Kühl")!;
+    expect(fahrzeuge.filter((f) => f.typ.code === kuehl.code)).toHaveLength(1);
   });
 
   it("belegt den FmKW der FGr K (A) mit 18/13 (Doku-Beispiel)", () => {

@@ -80,9 +80,10 @@ export const THW_STAN_FAHRZEUGE: Record<number, StanFahrzeug[]> = {
   31: [fk(11, 65), fk(9, 44), f(44)], // Öl (B): LKW Lkr (leicht)
   32: [fk(11, 65, 67), f(44)], // Öl (C): 2x LKW WLF, Anh Plattform
   36: [fk(2, 10)], // ZTr FZ Log: FüKW (ZTr-Fahrzeug → 10; s. Kopf-Kommentar)
-  37: [fk(9, 44), fk(10, 46), fk(12, 65), fk(6, 34), fk(15, 21), f(21), f(44), ft("Anh FGr Log-MW"), ft("Anhänger")], // Log-MW
-  38: [fk(8, 43), fk(5, 25), ft("Anhänger")], // Log-V: LKW Lbw, MTW FGr, Anhänger
-  39: [fk(13, 68), f(14)], // Tr Log-TS: SZM, Auflieger (Anhänger)
+  // Log-MW: LKW K Lkr (Kennzahl 63, Rückmeldung OV Chemnitz 11/2026 — vorher LKW Lkr/44), LKW Lkr gl, WLF Tank, MLW IV, PKW gl, Gabelstapler, Anh Plattform, Anhänger
+  37: [fk(28, 63), fk(10, 46), fk(12, 65), fk(6, 34), fk(15, 21), f(21), f(44), ft("Anh FGr Log-MW"), ft("Anhänger")],
+  38: [fk(8, 43), fk(5, 25), f(56), ft("Anhänger")], // Log-V: LKW Lbw, MTW FGr, Anh Kühl (Rückmeldung OV Chemnitz 11/2026), Anhänger
+  39: [fk(13, 68), f(14)], // Tr Log-TS: SZM, Auflieger (Bauform offen: im Bogen auf „Auflieger Plane/Spriegel" oder „Auflieger Plattform" änderbar)
   41: [fk(2, 11)], // ZTr FZ FK: FüKW (nur FZ FK → 11)
   42: [fk(3, 12), f(42)], // F: FüKomKW, Anh FüLa
   43: [fk(1, 13), fk(5, 25), f(40), f(41)], // K (A): FmKW, MTW FGr, Anh 2t, Anh K
