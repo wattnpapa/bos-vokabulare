@@ -85,7 +85,7 @@ export const THW_STAN_FAHRZEUGE: Record<number, StanFahrzeug[]> = {
   28: [fk(8, 43), fk(6, 34), f(51), f(43)], // WP (B): Anh SwPu mittel
   29: [fk(8, 43), fk(6, 34), f(52), f(43)], // WP (C): Anh SwPu groß
   30: [fk(11, 65), fk(9, 44), f(44)], // Öl (A): LKW WLF, LKW Lkr (mittel), Anh Plattform
-  31: [fk(11, 65), fk(9, 44), f(44)], // Öl (B): LKW Lkr (leicht)
+  31: [fk(11, 65), fk(9, 45), f(44)], // Öl (B): LKW WLF, LKW Lkr (Kennzahl 45, Rückmeldung OV Kiel: Heros … 56/45), Anh Plattform
   32: [fk(11, 65, 67), f(44)], // Öl (C): 2x LKW WLF, Anh Plattform
   36: [fk(2, 10)], // ZTr FZ Log: FüKW (ZTr-Fahrzeug → 10; s. Kopf-Kommentar)
   // FZ Log (09-04 bis 09-07) am 2026-11-08 von Hand gegen die StAN-Gliederungsbilder (Stand 01.07.2026) geprüft.

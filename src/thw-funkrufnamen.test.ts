@@ -149,6 +149,13 @@ describe("stanFahrzeugVorbelegung — Funkrufname", () => {
     expect(fahrzeuge.filter((f) => f.typ.code === kuehl.code)).toHaveLength(1);
   });
 
+  it("führt bei der FGr Öl (B) den LKW Lkr als Heros 56/45 (Rückmeldung OV Kiel)", () => {
+    const fahrzeuge = stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp("FGr Öl (B)"));
+    const lkr = THW_FAHRZEUGTYPEN.find((t) => t.kurz === "LKW Lkr")!;
+    const ladekran = fahrzeuge.find((f) => f.typ.code === lkr.code)!;
+    expect(ladekran.funkrufname?.teile).toEqual([56, 45]);
+  });
+
   it("belegt den FmKW der FGr K (A) mit 18/13 (Doku-Beispiel)", () => {
     const fahrzeuge = stanFahrzeugVorbelegung(OrganisationsTyp.THW, einheitsTyp("FGr K (A)"));
     expect(fahrzeuge[0]!.funkrufname?.teile).toEqual([18, 13]);
